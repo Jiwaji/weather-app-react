@@ -1,0 +1,282 @@
+#root {
+  background-color: lightgray;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+h1,
+h2,
+p {
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+/* div {
+  border: 1px solid black;
+} */
+
+.main {
+  height: 80%;
+  width: 90%;
+  background-color: white;
+  box-shadow: 3px 3px 5px -5px;
+  border-radius: 20px;
+  display: flex;
+}
+
+.left {
+  /* border-right: 1px solid black; */
+  width: 30%;
+  height: 100%;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  /* padding: 0 10px; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.left-inner {
+  width: 85%;
+  height: 90%;
+  display: flex;
+  /* justify-content: center; */
+  flex-direction: column;
+  align-items: center;
+}
+
+.searchbar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 10%;
+  width: 90%;
+  font-size: 15px;
+  gap: 10px;
+}
+
+.search-icon,
+.detect-location-icon {
+  width: 20px;
+  /* height: 20px; */
+}
+
+.detect-location-icon {
+  background-color: #efefef;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+}
+
+.detect-location {
+  display: flex;
+  align-items: center;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.searchbar input {
+  border: none;
+  width: 80%;
+  font-size: 11px;
+  /* border-bottom: 1px solid black; */
+}
+
+.searchbar input:focus-visible {
+  outline: none;
+}
+
+.current-temp {
+  width: 90%;
+  height: 90%;
+  margin-bottom: 10px;
+}
+
+.temp-img {
+  height: 40%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.temp-img img {
+  height: 90%;
+  /* width: 65%; */
+  border-radius: 50%;
+  border: 1px solid lightgray;
+}
+
+.current-temp span {
+  color: lightslategray;
+}
+
+hr {
+  width: 100%;
+  opacity: 0.2;
+}
+
+.city-img {
+  width: 100%;
+  height: 15%;
+  border-radius: 5px;
+  position: relative;
+}
+
+.city-img p {
+  color: white;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.city-img img {
+  height: 100%;
+  width: 100%;
+  border-radius: 5px;
+}
+
+.temp {
+  font-size: 32px;
+  margin-bottom: 15px;
+}
+
+.day {
+  margin-bottom: 15px;
+  font-size: 15px;
+}
+
+.current-weather {
+  margin-bottom: 30px;
+  font-size: 11px;
+}
+
+.weather {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/*RIGHT*/
+
+.right {
+  background-color: #f0f0f0;
+  width: 70%;
+  height: 100%;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.right-top {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 90%;
+  height: 20%;
+}
+
+.right-top .header {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.right-top .tab {
+  display: flex;
+  gap: 10px;
+  font-size: 12px;
+  flex-grow: 1;
+}
+
+.right-top .tab button {
+  border: none;
+}
+
+.right-top .tab button.active {
+  font-weight: 600;
+  border-bottom: 1px solid black;
+}
+
+.right-top .unit {
+  display: flex;
+  gap: 10px;
+  font-size: 12px;
+}
+
+.right-top .unit button {
+  border: 1px solid black;
+  border-radius: 50%;
+  height: 20px;
+  width: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.right-top .unit button.active {
+  background-color: black;
+  color: white;
+}
+
+.right-top .profile img {
+  height: 30px;
+  width: 30px;
+  border-radius: 5px;
+}
+
+.cards {
+  height: 50%;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.card {
+  height: 10vh;
+  width: 100px;
+  background-color: white;
+  font-size: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.low-temp {
+  color: gray;
+}
+
+.right-bottom {
+  height: 65%;
+  width: 90%;
+  /* border: 1px solid black; */
+}
+
+.highlights {
+  height: 100%;
+  width: 100%;
+}
+
+.highlights-cards {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  height: 80%;
+  width: 100%;
+  overflow: auto;
+}
+
