@@ -1,6 +1,6 @@
 import "./HighlightCard.css"
 
-import locationIcon from '../../assets/location-dot.svg'
+// import locationIcon from '../../assets/location-dot.svg'
 
 export default function HighlightCard({ title, children, type }) {
     return (

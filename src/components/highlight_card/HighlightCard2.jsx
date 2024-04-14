@@ -1,4 +1,4 @@
-import locationIcon from '../../assets/location-dot.svg'
+// import locationIcon from '../../assets/location-dot.svg'
 
 import './HighlightCard2.css'
 

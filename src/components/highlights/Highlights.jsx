@@ -1,8 +1,8 @@
 import weatherIcon from '../../assets/weather.svg';
-import locationIcon from '../../assets/location-dot.svg';
+// import locationIcon from '../../assets/location-dot.svg';
 
 import ProgressBar from '../progress_bar/ProgressBar';
-import Slider from '../slider/Slider';
+// import Slider from '../slider/Slider';
 import HighlightCard from '../highlight_card/HighlightCard';
 import HighlightCard2 from '../highlight_card/HighlightCard2';
 

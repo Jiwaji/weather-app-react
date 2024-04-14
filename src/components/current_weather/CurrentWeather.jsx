@@ -1,10 +1,12 @@
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 
 import { setWeather, setLatLong, setLocation, setLocationImage } from '../../slices/weatherSlice';
 
 import searchIcon from '../../assets/search.svg';
 import detectIcon from '../../assets/detect.svg';
+
+import { API_URLS  } from '../../constants';
 
 export default function CurrentWeather() {
     const weather = useSelector((state) => state.weather)
@@ -13,13 +15,12 @@ export default function CurrentWeather() {
     const location = useSelector((state) => state.location)
     const latLong = useSelector((state) => state.latLong)
 
+    const [ iconSrc, setIconSrc ] = useState("")
+
     const dispatch = useDispatch()
 
     const OWM_API_KEY = process.env.REACT_APP_OPEN_WEATHER_API_KEY;
     const UNSPLASH_KEY = process.env.REACT_APP_UNSPLASH_API_KEY;
-    const WEATHER_URL = `https://api.openweathermap.org/data/2.5/weather`
-    const LOCATION_URL = `https://api.openweathermap.org/geo/1.0/direct`
-    const LOCATION_IMAGE_URL = `https://api.unsplash.com/search/photos`
 
     const today = new Date();
     const days = {
@@ -48,14 +49,14 @@ export default function CurrentWeather() {
 
     const getWeather = useCallback(async (lat, lon) => {
         try {
-            const url = `${WEATHER_URL}?lat=${lat}&lon=${lon}&units=${unit}&appid=${OWM_API_KEY}`;
+            const url = `${API_URLS.CURRENT_WEATHER}?lat=${lat}&lon=${lon}&units=${unit}&appid=${OWM_API_KEY}`;
             const res = await fetch(url);
             const data = await res.json();
             dispatch(setWeather(data))
         } catch (error) {
             console.log(error)
         }
-    }, [WEATHER_URL, OWM_API_KEY, unit, dispatch])
+    }, [OWM_API_KEY, unit, dispatch])
 
     const getWeatherBySearchLocation = useCallback(async () => {
         const { lat, lon } = latLong;
@@ -64,7 +65,7 @@ export default function CurrentWeather() {
 
     const getLatLong = useCallback(async () => {
         try {
-            const url = `${LOCATION_URL}?q=${location}&limit=10&appid=${OWM_API_KEY}`;
+            const url = `${API_URLS.LOCATION}?q=${location}&limit=10&appid=${OWM_API_KEY}`;
             const res = await fetch(url);
             if (res.ok) {
                 const data = await res.json();
@@ -76,21 +77,20 @@ export default function CurrentWeather() {
         } catch (error) {
             console.log(error)
         }
-    }, [LOCATION_URL, OWM_API_KEY, location, dispatch])
+    }, [OWM_API_KEY, location, dispatch])
 
     const getLocationImage = useCallback(async () => {
         try {
-            const url = `${LOCATION_IMAGE_URL}?query=${location}&page=1&client_id=${UNSPLASH_KEY}`;
+            const url = `${API_URLS.LOCATION_IMAGE}?query=${location}&page=1&client_id=${UNSPLASH_KEY}`;
             const res = await fetch(url);
             const data = await res.json();
-            console.log(data)
             if (data.results.length) {
                 dispatch(setLocationImage(data.results[0].urls.full))
             }
         } catch (error) {
             console.log(error)
         }
-    }, [LOCATION_IMAGE_URL, UNSPLASH_KEY, location, dispatch])
+    }, [UNSPLASH_KEY, location, dispatch])
 
     useEffect(() => {
         if (location) {
@@ -102,6 +102,12 @@ export default function CurrentWeather() {
     useEffect(() => {
         getWeatherBySearchLocation()
     }, [latLong, unit, getWeatherBySearchLocation])
+
+    useEffect(() => {
+        if(weather?.weather[0]?.icon) {
+            setIconSrc(`https://openweathermap.org/img/wn/${weather?.weather[0]?.icon}.png`)
+        }
+    }, [weather])
 
     return (
         <div className="left">
@@ -118,7 +124,7 @@ export default function CurrentWeather() {
                 </div>
                 <div className="current-temp">
                     <div className="temp-img">
-                        <img src={`https://openweathermap.org/img/wn/${weather?.weather[0]?.icon}@4x.png`} alt="weather" />
+                        <img src={iconSrc} alt="weather" />
                     </div>
                     <p className="temp">{weather?.main?.temp} {unit === "metric" ? <span>&#8451;</span> : <span>&#8457;</span>}</p>
                     <p className="day">
@@ -127,12 +133,12 @@ export default function CurrentWeather() {
                     <hr />
                     <div className="current-weather">
                         <div className="weather clouds">
-                            <img src={`https://openweathermap.org/img/wn/${weather?.weather[0]?.icon}.png`} alt="clouds" width="20" height="20" />
+                            <img src={iconSrc} alt="clouds" width="20" height="20" />
                             <p>{weather?.weather[0]?.main}</p>
                         </div>
                         <div className="weather rain">
-                            <img src={`https://openweathermap.org/img/wn/${weather?.weather[0]?.icon}.png`} alt="rain" width="20" height="20" />
-                            <p>Rain {weather?.rain ? weather?.rain["1h"] : "0%"} </p>
+                            <img src={iconSrc} alt="rain" width="20" height="20" />
+                            <p>Humidity {weather?.main?.humidity}% </p>
                         </div>
                     </div>
                     <div className="city-img">
