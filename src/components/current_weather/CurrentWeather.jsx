@@ -3,6 +3,8 @@ import { useSelector, useDispatch } from 'react-redux'
 
 import { setWeather, setLatLong, setLocation, setLocationImage } from '../../slices/weatherSlice';
 
+import { useDebounce } from '../../hooks/hooks';
+
 import searchIcon from '../../assets/search.svg';
 import detectIcon from '../../assets/detect.svg';
 
@@ -16,6 +18,7 @@ export default function CurrentWeather() {
     const latLong = useSelector((state) => state.latLong)
 
     const [ iconSrc, setIconSrc ] = useState("")
+    const debouncedSearch = useDebounce(location)
 
     const dispatch = useDispatch()
 
@@ -65,7 +68,7 @@ export default function CurrentWeather() {
 
     const getLatLong = useCallback(async () => {
         try {
-            const url = `${API_URLS.LOCATION}?q=${location}&limit=10&appid=${OWM_API_KEY}`;
+            const url = `${API_URLS.LOCATION}?q=${debouncedSearch}&limit=10&appid=${OWM_API_KEY}`;
             const res = await fetch(url);
             if (res.ok) {
                 const data = await res.json();
@@ -77,11 +80,11 @@ export default function CurrentWeather() {
         } catch (error) {
             console.log(error)
         }
-    }, [OWM_API_KEY, location, dispatch])
+    }, [OWM_API_KEY, debouncedSearch, dispatch])
 
     const getLocationImage = useCallback(async () => {
         try {
-            const url = `${API_URLS.LOCATION_IMAGE}?query=${location}&page=1&client_id=${UNSPLASH_KEY}`;
+            const url = `${API_URLS.LOCATION_IMAGE}?query=${debouncedSearch}&page=1&client_id=${UNSPLASH_KEY}`;
             const res = await fetch(url);
             const data = await res.json();
             if (data.results.length) {
@@ -90,14 +93,14 @@ export default function CurrentWeather() {
         } catch (error) {
             console.log(error)
         }
-    }, [UNSPLASH_KEY, location, dispatch])
+    }, [UNSPLASH_KEY, debouncedSearch, dispatch])
 
     useEffect(() => {
-        if (location) {
+        if (debouncedSearch) {
             getLatLong()
             getLocationImage()
         }
-    }, [location, getLatLong, getLocationImage]);
+    }, [debouncedSearch, getLatLong, getLocationImage]);
 
     useEffect(() => {
         getWeatherBySearchLocation()
@@ -126,7 +129,7 @@ export default function CurrentWeather() {
                     <div className="temp-img">
                         <img src={iconSrc} alt="weather" />
                     </div>
-                    <p className="temp">{weather?.main?.temp} {unit === "metric" ? <span>&#8451;</span> : <span>&#8457;</span>}</p>
+                    <p className="temp">{weather?.main?.temp}<span>{unit === 'metric' ? <>&#8451;</> : <>&#8457;</>}</span></p>
                     <p className="day">
                         {currentDay},<span className="current-time">{currentTime}</span>
                     </p>

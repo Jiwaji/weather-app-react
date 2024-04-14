@@ -117,7 +117,17 @@ a {
   border: 1px solid lightgray;
 }
 
-.current-temp span {
+.temp {
+  position: relative;
+}
+
+.temp span {
+  font-size: 20px;
+  position: absolute;
+  top: 10%;
+}
+
+.day span {
   color: lightslategray;
 }
 
