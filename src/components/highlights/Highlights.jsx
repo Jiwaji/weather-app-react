@@ -15,7 +15,7 @@ export default function Hightlights() {
                     <ProgressBar/>
                 </HighlightCard>
 
-                <HighlightCard2 title="Wind Speed" value={7.7} unit="km/h">
+                <HighlightCard2 title="Wind Status" value={7.7} unit="km/h">
                 </HighlightCard2>
 
                 <HighlightCard title="Sunrise & Sunset">
@@ -34,6 +34,15 @@ export default function Hightlights() {
                         </div>
                     </div>
                 </HighlightCard>
+
+                <HighlightCard2 title="Humidity" value={12} unit="%" footer="Normal" hasIndicator>
+                </HighlightCard2>
+
+                <HighlightCard2 title="Visibility" value={5.2} unit="km" footer="Average">
+                </HighlightCard2>
+
+                <HighlightCard2 title="Air Quality" value={105} footer="Unhealthy" hasIndicator>
+                </HighlightCard2>
                 {/* <HighlightCard title="UV Index">
                     <ProgressBar />
                 </HighlightCard>

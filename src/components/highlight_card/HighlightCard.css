@@ -33,3 +33,29 @@
   justify-content: center;
   flex-direction: column;
 }
+
+.sns-highlight {
+  display: flex;
+  flex-direction: column;
+}
+
+.sns {
+  display: flex;
+  width: 95%;
+  align-items: center;
+  gap: 10px;
+  /* justify-content: center; */
+}
+
+.sns-icon {
+  width: 30px;
+}
+
+.sns-time {
+  font-size: 12px;
+}
+
+.sns-diff {
+  color: gray;
+  font-size: 10px;
+}

@@ -108,7 +108,7 @@ export default function CurrentWeather() {
 
     useEffect(() => {
         if(weather?.weather[0]?.icon) {
-            setIconSrc(`https://openweathermap.org/img/wn/${weather?.weather[0]?.icon}.png`)
+            setIconSrc(`https://openweathermap.org/img/wn/${weather?.weather[0]?.icon}@4x.png`)
         }
     }, [weather])
 

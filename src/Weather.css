@@ -235,6 +235,8 @@ hr {
   width: 20px;
   display: flex;
   justify-content: center;
+  background-color: white;
+  border: none;
 }
 
 .right-top .unit button.active {
